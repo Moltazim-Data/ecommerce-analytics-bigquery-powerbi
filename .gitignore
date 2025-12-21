@@ -1,1 +1,13 @@
 
+# Data files (do not commit raw datasets)
+data/
+*.csv
+*.zip
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+*.swp
+.vscode/
