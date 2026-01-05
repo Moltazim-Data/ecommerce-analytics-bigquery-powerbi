@@ -42,9 +42,22 @@ Olist Brazilian E-Commerce Public Dataset (Kaggle):
 ## Repository Structure
 - `sql/` : BigQuery SQL scripts (staging, DWH, marts) with execution order documented
 - `notebooks/` : data quality + EDA
-- `dashboard/` : Power BI export + screenshots
+- `dashboard/` : Power BI export (screenshots)
 - `reports/` : executive summary
 - `docs/` : data dictionary and notes
+
+## Power BI Dashboard
+
+Final data marts are visualized in Power BI across three pages:
+- Sales Overview
+- Category Performance
+- Customer RFM Analysis
+
+Screenshots are available in `dashboard/`.
+
+The dashboards highlight revenue trends, top-performing categories, and customer behavior patterns.
+
+
 
 ## How to Reproduce (High Level)
 1. Download the dataset from Kaggle.
