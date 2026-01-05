@@ -3,6 +3,12 @@
 End-to-end analytics project using the Olist Brazilian E-Commerce dataset.
 The goal is to build a complete analytics workflow: raw data → cleaned staging → star schema (DWH) → analytics marts → Power BI dashboard → business insights.
 
+## Project Highlights
+- Built a layered analytics architecture (RAW → STG → DWH → MART)
+- Designed a star schema with fact and dimension tables
+- Created BI-ready data marts for sales, categories, and RFM segmentation
+- Focused on reproducibility and SQL-first data modeling
+
 ## Tech Stack
 - BigQuery (data warehouse)
 - SQL (staging, star schema, analytics marts)
@@ -34,7 +40,7 @@ Olist Brazilian E-Commerce Public Dataset (Kaggle):
 - Executive summary with key insights and recommendations
 
 ## Repository Structure
-- `sql/` : BigQuery SQL scripts
+- `sql/` : BigQuery SQL scripts (staging, DWH, marts) with execution order documented
 - `notebooks/` : data quality + EDA
 - `dashboard/` : Power BI export + screenshots
 - `reports/` : executive summary
@@ -46,3 +52,7 @@ Olist Brazilian E-Commerce Public Dataset (Kaggle):
 3. Upload CSVs into `olist_raw`.
 4. Run SQL scripts in order from `sql/`.
 5. Connect Power BI to BigQuery marts and build the dashboard.
+
+> Note: SQL scripts use `YOUR_PROJECT_ID` as a placeholder.  
+> Replace it with your own Google Cloud project ID when running the queries.
+
