@@ -24,13 +24,14 @@ Review the dataset's license and terms before redistributing source files. This 
 
 ## Recommended implementation order
 
-1. Create BigQuery datasets in the same region.
-2. Load the Olist CSVs into `olist_raw`.
-3. Add and test staging SQL with explicit casts, null handling, and deduplication rules.
-4. Build a documented star schema and define the grain of each fact table.
-5. Create marts and reconcile their totals to source data.
-6. Build the Power BI report and commit screenshots or an export only after it exists.
-7. Publish an executive summary based on query outputs, not assumed results.
+1. Create datasets `olist_raw`, `olist_stg`, `olist_dwh`, and `olist_mart` in the same region.
+2. Load the Olist CSV tables into `olist_raw` using source table names expected by the scripts (`orders`, `order_items`, `customers`, `products`).
+3. Replace `YOUR_PROJECT_ID` in `sql/01_staging.sql`, then run it.
+4. Run `sql/02_warehouse.sql`, then `sql/03_marts.sql` in order.
+5. Run `docs/validation_checks.sql` and review row counts, null keys, duplicates, and negative prices.
+6. Reconcile mart totals to source data before building Power BI visuals.
+7. Build the Power BI report and commit screenshots or an export only after it exists.
+8. Publish an executive summary based on query outputs, not assumed results.
 
 ## Expected repository layout
 
@@ -42,7 +43,7 @@ reports/      Validated findings and recommendations
 docs/         Data dictionary, model diagram, KPI definitions
 ```
 
-These folders describe the planned deliverables; confirm the actual committed files before assuming a deliverable is complete. Use `YOUR_PROJECT_ID` only as a placeholder and never commit credentials.
+The SQL starter files now committed are `sql/01_staging.sql`, `sql/02_warehouse.sql`, `sql/03_marts.sql`, and `docs/validation_checks.sql`. KPI definitions are in `docs/metric_definitions.md`. These scripts are templates and have not been run against your BigQuery project in this review. Use `YOUR_PROJECT_ID` only as a placeholder and never commit credentials.
 
 ## KPI definitions to document
 
