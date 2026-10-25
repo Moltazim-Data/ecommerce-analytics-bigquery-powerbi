@@ -1,71 +1,57 @@
-# E-commerce Analytics (BigQuery + SQL + Power BI)
+# E-commerce Analytics — BigQuery, SQL, Python & Power BI
 
-End-to-end analytics project using the Olist Brazilian E-Commerce dataset.
-The goal is to build a complete analytics workflow: raw data → cleaned staging → star schema (DWH) → analytics marts → Power BI dashboard → business insights.
+This repository is a **project blueprint and starter workspace** for an analytics workflow using the public Olist Brazilian E-Commerce dataset. The intended design is RAW → STAGING → WAREHOUSE → MARTS → BI. Do not interpret the architecture description as proof that every layer has already been implemented or deployed.
 
-## Project Highlights
-- Built a layered analytics architecture (RAW → STG → DWH → MART)
-- Designed a star schema with fact and dimension tables
-- Created BI-ready data marts for sales, categories, and RFM segmentation
-- Focused on reproducibility and SQL-first data modeling
+## Intended business questions
 
-## Tech Stack
-- BigQuery (data warehouse)
-- SQL (staging, star schema, analytics marts)
-- Python (data quality checks, exploratory analysis in Jupyter)
-- Power BI (dashboard)
+- How do order value, order count, and average order value change over time?
+- Which product categories contribute the most to sales?
+- What do repeat-purchase and customer-segmentation patterns look like?
+- How do delivery times and order statuses vary?
 
 ## Dataset
-Olist Brazilian E-Commerce Public Dataset (Kaggle):
-- https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
 
-## Architecture
-**Raw → Staging → DWH → Marts**
-- `olist_raw`: raw CSV tables loaded to BigQuery
-- `olist_stg`: cleaned/typed staging tables
-- `olist_dwh`: star schema (dimensions + facts)
-- `olist_mart`: dashboard-ready analytics tables
+Olist Brazilian E-Commerce Public Dataset: https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
 
-## Business Questions
-- How do revenue, orders, customers, and AOV evolve over time?
-- Which categories and products generate the most revenue?
-- What is the repeat customer rate and cohort retention over time?
-- Which customer segments are most valuable (RFM)?
-- What operational patterns appear (delivery times, cancellations if available)?
+Review the dataset's license and terms before redistributing source files. This repository does not require private customer information or credentials.
 
-## Deliverables
-- BigQuery SQL scripts (staging, DWH, marts)
-- Data quality & EDA notebooks
-- Power BI dashboard (screenshots + PDF export)
-- Executive summary with key insights and recommendations
+## Target architecture
 
-## Repository Structure
-- `sql/` : BigQuery SQL scripts (staging, DWH, marts) with execution order documented
-- `notebooks/` : data quality + EDA
-- `dashboard/` : Power BI export (screenshots)
-- `reports/` : executive summary
-- `docs/` : data dictionary and notes
+- `olist_raw`: source tables loaded from CSV
+- `olist_stg`: typed, cleaned staging tables
+- `olist_dwh`: fact and dimension tables
+- `olist_mart`: BI-ready aggregate tables
 
-## Power BI Dashboard
+## Recommended implementation order
 
-Final data marts are visualized in Power BI across three pages:
-- Sales Overview
-- Category Performance
-- Customer RFM Analysis
+1. Create BigQuery datasets in the same region.
+2. Load the Olist CSVs into `olist_raw`.
+3. Add and test staging SQL with explicit casts, null handling, and deduplication rules.
+4. Build a documented star schema and define the grain of each fact table.
+5. Create marts and reconcile their totals to source data.
+6. Build the Power BI report and commit screenshots or an export only after it exists.
+7. Publish an executive summary based on query outputs, not assumed results.
 
-Screenshots are available in `dashboard/`.
+## Expected repository layout
 
-The dashboards highlight revenue trends, top-performing categories, and customer behavior patterns.
+```text
+sql/          Ordered SQL scripts for staging, warehouse, and marts
+notebooks/    Data quality and exploratory analysis
+dashboard/    Genuine dashboard screenshots or exports
+reports/      Validated findings and recommendations
+docs/         Data dictionary, model diagram, KPI definitions
+```
 
+These folders describe the planned deliverables; confirm the actual committed files before assuming a deliverable is complete. Use `YOUR_PROJECT_ID` only as a placeholder and never commit credentials.
 
+## KPI definitions to document
 
-## How to Reproduce (High Level)
-1. Download the dataset from Kaggle.
-2. Create BigQuery datasets: `olist_raw`, `olist_stg`, `olist_dwh`, `olist_mart` (EU region recommended).
-3. Upload CSVs into `olist_raw`.
-4. Run SQL scripts in order from `sql/`.
-5. Connect Power BI to BigQuery marts and build the dashboard.
+- Revenue/order value: specify source fields, order statuses included, and treatment of freight, cancellations, and refunds.
+- Orders: count distinct order IDs, not order lines.
+- AOV: explicitly define the revenue numerator and distinct-order denominator.
+- Delivery time: define the timestamp pair and handling of undelivered/cancelled orders.
+- RFM: document reference date and scoring/segment rules.
 
-> Note: SQL scripts use `YOUR_PROJECT_ID` as a placeholder.  
-> Replace it with your own Google Cloud project ID when running the queries.
+## Status and limitations
 
+This is a reproducibility-focused portfolio exercise. Only describe BigQuery tables, Power BI pages, scheduled refresh, or deployed assets as completed after creating and validating them in your own environment. Do not commit service-account keys or other secrets.
